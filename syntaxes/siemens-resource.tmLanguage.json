@@ -1,0 +1,95 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Siemens Resource",
+  "scopeName": "source.siemens-resource",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#specialKeys" },
+    { "include": "#listItem" },
+    { "include": "#properties" },
+    { "include": "#strings" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.siemens-resource",
+          "match": "#.*$"
+        }
+      ]
+    },
+    "listItem": {
+      "patterns": [
+        {
+          "name": "punctuation.definition.list-item.siemens-resource",
+          "match": "^\\s*-"
+        }
+      ]
+    },
+    "specialKeys": {
+      "patterns": [
+        {
+          "name": "meta.mapping.key.id.siemens-resource",
+          "match": "^\\s*(?:-\\s*)?(id)\\s*(:)\\s*(MLC_[A-Za-z0-9]+)\\b",
+          "captures": {
+            "1": { "name": "entity.name.tag.siemens-resource" },
+            "2": { "name": "punctuation.separator.key-value.siemens-resource" },
+            "3": { "name": "constant.other.resource-id.siemens-resource" }
+          }
+        },
+        {
+          "name": "meta.mapping.key.language.siemens-resource",
+          "match": "^\\s*(?:-\\s*)?((?:[a-z]{2}|[a-z]{2,3})-[A-Z]{2})\\s*(:)\\s*(.*?)$",
+          "captures": {
+            "1": { "name": "support.constant.language-code.siemens-resource" },
+            "2": { "name": "punctuation.separator.key-value.siemens-resource" },
+            "3": { "name": "comment.line.value.siemens-resource" }
+          }
+        },
+        {
+          "name": "meta.mapping.key.multilingualtexts.siemens-resource",
+          "match": "^\\s*(MultiLingualTexts)\\s*(:)\\s*$",
+          "captures": {
+            "1": { "name": "keyword.other.multilingualtexts.siemens-resource" },
+            "2": { "name": "punctuation.separator.key-value.siemens-resource" }
+          }
+        }
+      ]
+    },
+    "properties": {
+      "patterns": [
+        {
+          "name": "meta.mapping.key.generic.siemens-resource",
+          "match": "^\\s*([A-Za-z][A-Za-z0-9_-]*)\\s*(:)",
+          "captures": {
+            "1": { "name": "entity.name.tag.siemens-resource" },
+            "2": { "name": "punctuation.separator.key-value.siemens-resource" }
+          }
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.siemens-resource",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            { "name": "constant.character.escape.siemens-resource", "match": "\\\\." }
+          ]
+        },
+        {
+          "name": "string.quoted.single.siemens-resource",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            { "name": "constant.character.escape.siemens-resource", "match": "\\\\." }
+          ]
+        }
+      ]
+    }
+  },
+  "uuid": "e2e34a40-1f1b-420f-8f5c-0b9c3c2b7a9f"
+}
+
+

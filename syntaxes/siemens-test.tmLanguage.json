@@ -1,0 +1,300 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Siemens SCL Test",
+  "scopeName": "source.siemens-test",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#regions" },
+    { "include": "#attributes" },
+    { "include": "#doubleQuotedIdentifiers" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#testKeywords" },
+    { "include": "#keywords" },
+    { "include": "#operatorsWord" },
+    { "include": "#functionCalls" },
+    { "include": "#namedParameters" },
+    { "include": "#types" },
+    { "include": "#constants" },
+    { "include": "#variables" },
+    { "include": "#uut" },
+    { "include": "#operatorsSymbol" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.siemens",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.siemens",
+          "begin": "\\(\\*",
+          "end": "\\*\\)"
+        }
+      ]
+    },
+    "functionCalls": {
+      "patterns": [
+        {
+          "name": "entity.name.function.siemens",
+          "match": "(?:#)?(?:\\\"[^\\\"]+\\\"|[A-Za-z_][A-Za-z0-9_]*)(?=\\s*\\()"
+        }
+      ]
+    },
+    "namedParameters": {
+      "patterns": [
+        {
+          "match": "^\\s*((?:\\\"[^\\\"]+\\\"|[A-Za-z_][A-Za-z0-9_]*))\\s*(=>)(?=[^;]*[,\\)])",
+          "captures": {
+            "1": { "name": "variable.parameter.siemens" },
+            "2": { "name": "keyword.operator.assignment.siemens" }
+          }
+        },
+        {
+          "match": "^\\s*((?:\\\"[^\\\"]+\\\"|[A-Za-z_][A-Za-z0-9_]*))\\s*(:=)(?=[^;]*[,\\)])",
+          "captures": {
+            "1": { "name": "variable.parameter.siemens" },
+            "2": { "name": "keyword.operator.assignment.siemens" }
+          }
+        },
+        {
+          "match": "(?:\\(|,)\\s*((?:\\\"[^\\\"]+\\\"|[A-Za-z_][A-Za-z0-9_]*))\\s*(=>)",
+          "captures": {
+            "1": { "name": "variable.parameter.siemens" },
+            "2": { "name": "keyword.operator.assignment.siemens" }
+          }
+        },
+        {
+          "match": "(?:\\(|,)\\s*((?:\\\"[^\\\"]+\\\"|[A-Za-z_][A-Za-z0-9_]*))\\s*(:=)",
+          "captures": {
+            "1": { "name": "variable.parameter.siemens" },
+            "2": { "name": "keyword.operator.assignment.siemens" }
+          }
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.siemens",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            { "name": "constant.character.escape.siemens", "match": "''" }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.time.multiunit.long.siemens",
+          "begin": "(?i)\\b(LT#|LTIME#)(?=[+-]?[0-9])",
+          "beginCaptures": {
+            "1": { "name": "constant.numeric.time-prefix.siemens" }
+          },
+          "end": "(?=\\s|[,;:)}\\]])",
+          "patterns": [
+            { "name": "constant.numeric.time.sign.siemens", "match": "[+-]" },
+            { "name": "constant.numeric.time.separator.siemens", "match": "_" },
+            {
+              "match": "(?i)([0-9][0-9_]*)(ms|us|ns|[dhms])",
+              "captures": {
+                "1": { "name": "constant.numeric.time.value.siemens" },
+                "2": { "name": "constant.numeric.time.unit.siemens" }
+              }
+            }
+          ]
+        },
+        {
+          "name": "constant.numeric.time.multiunit.short.siemens",
+          "begin": "(?i)\\b(T#|TIME#)(?=[+-]?[0-9])",
+          "beginCaptures": {
+            "1": { "name": "constant.numeric.time-prefix.siemens" }
+          },
+          "end": "(?=\\s|[,;:)}\\]])",
+          "patterns": [
+            { "name": "constant.numeric.time.sign.siemens", "match": "[+-]" },
+            { "name": "constant.numeric.time.separator.siemens", "match": "_" },
+            {
+              "match": "(?i)([0-9][0-9_]*)(ms|[dhms])",
+              "captures": {
+                "1": { "name": "constant.numeric.time.value.siemens" },
+                "2": { "name": "constant.numeric.time.unit.siemens" }
+              }
+            }
+          ]
+        },
+        {
+          "match": "(?i)\\b(B#(?:2|8|16)#)([0-9A-F_]+)\\b",
+          "captures": {
+            "1": { "name": "constant.numeric.base-prefix.siemens" },
+            "2": { "name": "constant.numeric.base-value.siemens" }
+          }
+        },
+        {
+          "match": "(?i)\\b(T#)([+-]?[0-9][0-9_]*)(ms)\\b",
+          "captures": {
+            "1": { "name": "constant.numeric.time-prefix.siemens" },
+            "2": { "name": "constant.numeric.time.value.siemens" },
+            "3": { "name": "constant.numeric.time.unit.ms.siemens" }
+          }
+        },
+        {
+          "match": "(?i)\\b(T#)([+-]?[0-9][0-9_]*)([dhms])\\b",
+          "captures": {
+            "1": { "name": "constant.numeric.time-prefix.siemens" },
+            "2": { "name": "constant.numeric.time.value.siemens" },
+            "3": { "name": "constant.numeric.time.unit.siemens" }
+          }
+        },
+        {
+          "name": "constant.numeric.siemens",
+          "match": "(?i)\\b(TRUE|FALSE)\\b"
+        },
+        {
+          "name": "constant.numeric.siemens",
+          "match": "\\b[+-]?((0x[0-9a-fA-F_]+)|(0b[01_]+)|([0-9][0-9_]*(\\.[0-9_]+)?))([eE][+-]?[0-9_]+)?\\b"
+        }
+      ]
+    },
+    "testKeywords": {
+      "patterns": [
+        {
+          "name": "keyword.declaration.siemens",
+          "match": "(?i)\\b(TEST_TARGET|TEST_ENTRY|TEST_CASE|END_TEST_CASE)\\b"
+        },
+        {
+          "name": "keyword.control.siemens",
+          "match": "(?i)\\b(SET|HOLD|RELEASE|RELEASE_ALL|WAIT_CYCLES|WAIT_TIME|WAIT_UNTIL|TIMEOUT|TOLERANCE|ASSERT|ASSERT_NEAR)\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.declaration.siemens",
+          "match": "(?i)\\b(FUNCTION_BLOCK|END_FUNCTION_BLOCK|FUNCTION|END_FUNCTION|ORGANIZATION_BLOCK|END_ORGANIZATION_BLOCK|DATA_BLOCK|END_DATA_BLOCK|VERSION|BEGIN|END|STRUCT|END_STRUCT|TYPE|END_TYPE|VAR|VAR_INPUT|VAR_OUTPUT|VAR_IN_OUT|VAR_TEMP|VAR_GLOBAL|VAR_EXTERNAL|CONSTANT|RETAIN|END_VAR)\\b"
+        },
+        {
+          "name": "keyword.control.siemens",
+          "match": "(?i)\\b(IF|THEN|ELSE|ELSIF|END_IF|CASE|OF|FOR|END_FOR|TO|DOWNTO|DO|WHILE|REPEAT|UNTIL|RETURN|EXIT|END_CASE)\\b"
+        }
+      ]
+    },
+    "regions": {
+      "patterns": [
+        {
+          "name": "keyword.region.siemens",
+          "match": "(?i)\\b(REGION|END_REGION)\\b"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "name": "storage.type.siemens",
+          "match": "(?i)\\b(BOOL|SINT|USINT|INT|UINT|DINT|UDINT|LINT|ULINT|REAL|LREAL|BYTE|WORD|DWORD|LWORD|CHAR|STRING|TIME|LTIME|TIME_OF_DAY|LTIME_OF_DAY|DATE|LDATE|DATE_AND_TIME|LDATE_AND_TIME)\\b"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.siemens",
+          "match": "(?i)\\b(TRUE|FALSE)\\b"
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.other.siemens",
+          "match": "#[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*"
+        }
+      ]
+    },
+    "uut": {
+      "patterns": [
+        {
+          "name": "variable.other.siemens",
+          "match": "(?i)\\bUUT\\b"
+        }
+      ]
+    },
+    "operatorsWord": {
+      "patterns": [
+        {
+          "name": "keyword.operator.logical.siemens",
+          "match": "(?i)\\b(AND|OR|NOT|XOR)\\b"
+        }
+      ]
+    },
+    "operatorsSymbol": {
+      "patterns": [
+        {
+          "name": "keyword.operator.assignment.siemens",
+          "match": "(:=|\\+=|-=|\\*=|/=)"
+        },
+        {
+          "name": "keyword.operator.logical.siemens",
+          "match": "&"
+        },
+        {
+          "name": "keyword.operator.comparison.siemens",
+          "match": "(<=|>=|<>|=|<|>)"
+        },
+        {
+          "name": "keyword.operator.arithmetic.siemens",
+          "match": "(\\+|-|\\*|/|MOD|\\*\\*)"
+        },
+        {
+          "name": "punctuation.separator.type.siemens",
+          "match": ":"
+        },
+        {
+          "name": "punctuation.terminator.statement.siemens",
+          "match": ";"
+        },
+        {
+          "name": "punctuation.separator.comma.siemens",
+          "match": ","
+        }
+      ]
+    },
+    "doubleQuotedIdentifiers": {
+      "patterns": [
+        {
+          "name": "entity.name.siemens",
+          "begin": "\"",
+          "end": "\""
+        }
+      ]
+    },
+    "attributes": {
+      "begin": "\\{",
+      "end": "\\}",
+      "name": "meta.annotation.siemens",
+      "patterns": [
+        { "include": "#strings" },
+        {
+          "name": "variable.annotation.key.siemens",
+          "match": "(?i)\\b[A-Za-z_][A-Za-z0-9_]*\\b"
+        },
+        {
+          "name": "keyword.operator.assignment.siemens",
+          "match": ":="
+        },
+        {
+          "name": "punctuation.separator.annotation.siemens",
+          "match": ";"
+        }
+      ]
+    }
+  },
+  "fileTypes": [
+    "scltest"
+  ],
+  "uuid": "f8a5ad93-0a13-47b8-96ba-ec47932adb93"
+}

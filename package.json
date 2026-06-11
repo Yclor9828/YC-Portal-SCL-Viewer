@@ -1,0 +1,587 @@
+{
+	"name": "yc-portal-scl-viewer",
+	"displayName": "YC Portal SCL Viewer",
+	"description": "Syntax highlighting and Language Server for Siemens SCL, providing clear and modern file icons for your project.",
+	"keywords": [
+		"Structured text",
+		"FBD",
+		"Function block",
+		"LAD",
+		"Ladder",
+		"TIA Portal"
+	],
+	"icon": "images/logo_transparent.png",
+	"version": "2.10.1",
+	"publisher": "DynamicEngineering",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Danielv123/vscode_siemens"
+	},
+	"engines": {
+		"vscode": "^1.99.0"
+	},
+	"activationEvents": [
+		"onLanguage:siemens",
+		"onLanguage:siemens-resource",
+		"onLanguage:siemens-test",
+		"workspaceContains:**/.plc.json",
+		"onCustomEditor:siemens.s7dclEditor",
+		"onCustomEditor:siemens.tagTableEditor",
+		"onCommand:siemens.buildAndRun",
+		"onCommand:siemens.debugPLC",
+		"onCommand:siemens.runTests",
+		"onView:siemens.plcDebugDashboard",
+		"onView:siemens.plcDebugWatch",
+		"onDebug",
+		"onDebugResolve:plc",
+		"onDebugDynamicConfigurations:plc",
+		"onStartupFinished",
+		"onLanguageModelTool:siemens_plccheck_development_workflow",
+		"onLanguageModelTool:siemens_plccheck_unit_test_guidance",
+		"onLanguageModelTool:siemens_plccheck_validation_commands",
+		"onLanguageModelTool:siemens_plccheck_transpile_s7dcl"
+	],
+	"categories": [
+		"Programming Languages"
+	],
+	"main": "./out/client/extension.js",
+	"contributes": {
+		"debuggers": [
+			{
+				"type": "plc",
+				"label": "Siemens PLC",
+				"languages": [
+					{
+						"language": "siemens"
+					}
+				],
+				"configurationAttributes": {
+					"launch": {
+						"required": [
+							"program"
+						],
+						"properties": {
+							"name": {
+								"type": "string",
+								"description": "A user-friendly name for this debug configuration"
+							},
+							"program": {
+								"type": "string",
+								"description": "Path to the PLC entrypoint or build artifact"
+							},
+							"stopOnEntry": {
+								"type": "boolean",
+								"default": false,
+								"description": "Stop the debugger immediately after starting"
+							},
+							"plcRoot": {
+								"type": "string",
+								"description": "Path to the PLC root containing .plc.json"
+							},
+							"entryOb": {
+								"type": "string",
+								"description": "Optional ORGANIZATION_BLOCK entrypoint passed as --entry-ob (default: OB1)"
+							}
+						}
+					}
+				},
+				"configurationSnippets": [
+					{
+						"label": "Siemens PLC",
+						"description": "Launch with defaults based on workspace PLC roots",
+						"body": {
+							"name": "Debug PLC",
+							"type": "plc",
+							"request": "launch",
+							"program": "${file}",
+							"stopOnEntry": false
+						}
+					}
+				],
+				"initialConfigurations": [
+					{
+						"name": "Debug PLC",
+						"type": "plc",
+						"request": "launch",
+						"program": "${file}",
+						"stopOnEntry": false
+					}
+				]
+			}
+		],
+		"breakpoints": [
+			{
+				"language": "siemens"
+			}
+		],
+		"customEditors": [
+			{
+				"viewType": "siemens.s7dclEditor",
+				"displayName": "S7DCL Editor (Preview)",
+				"selector": [
+					{
+						"filenamePattern": "*.s7dcl"
+					}
+				],
+				"priority": "option"
+			},
+			{
+				"viewType": "siemens.tagTableEditor",
+				"displayName": "PLC Tag Table Editor",
+				"selector": [
+					{
+						"filenamePattern": "**/PLC tags/**/*.xml"
+					}
+				],
+				"priority": "default"
+			}
+		],
+		"taskDefinitions": [
+			{
+				"type": "plc",
+				"required": [
+					"command",
+					"plcRoot"
+				],
+				"properties": {
+					"command": {
+						"type": "string",
+						"enum": [
+							"build",
+							"run",
+							"buildAndRun"
+						],
+						"description": "PLC task action."
+					},
+					"plcRoot": {
+						"type": "string",
+						"description": "Absolute path to the PLC root containing .plc.json."
+					}
+				}
+			}
+		],
+		"languageModelTools": [
+			{
+				"name": "siemens_plccheck_development_workflow",
+				"tags": [
+					"siemens",
+					"plccheck",
+					"workflow",
+					"development",
+					"validation"
+				],
+				"toolReferenceName": "plccheckWorkflow",
+				"displayName": "plccheck Development Workflow",
+				"modelDescription": "Use at the start of a Siemens PLC development task and after PLC source edits. Returns the agent workflow for locating the .plc.json root, running plccheck check, writing or updating .scltest files for PLC logic unit tests, running plccheck test, collecting coverage, and transpiling S7DCL/FBD/LAD when needed. Prefer this over generic source-text tests for PLC behavior. This tool is read-only; the agent must run the returned terminal commands itself.",
+				"userDescription": "Explain the recommended plccheck development workflow for this Siemens PLC project.",
+				"canBeReferencedInPrompt": true,
+				"icon": "$(beaker)",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"projectPath": {
+							"type": "string",
+							"description": "Optional absolute path to a PLC root or a file under one. If omitted, the active editor and workspace .plc.json files are used."
+						}
+					}
+				}
+			},
+			{
+				"name": "siemens_plccheck_unit_test_guidance",
+				"tags": [
+					"siemens",
+					"plccheck",
+					"scltest",
+					"unit-test",
+					"testing",
+					"validation"
+				],
+				"toolReferenceName": "plccheckUnitTests",
+				"displayName": "plccheck PLC Unit Tests",
+				"modelDescription": "Use whenever the user asks to write, update, review, or run a unit test for Siemens PLC logic, SCL/ST, an FC, or an FB. Explains that PLC behavior unit tests belong in .scltest files and should be run with plccheck test; do not satisfy PLC logic unit-test requests with Python or JavaScript tests that merely inspect source text. This tool is read-only and returns concrete commands plus .scltest authoring guidance.",
+				"userDescription": "Explain how to write and run PLC unit tests with .scltest and plccheck.",
+				"canBeReferencedInPrompt": true,
+				"icon": "$(testing-view-icon)",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"projectPath": {
+							"type": "string",
+							"description": "Optional absolute path to a PLC root or file under one. If omitted, the active editor and workspace .plc.json files are used."
+						},
+						"targetBlock": {
+							"type": "string",
+							"description": "Optional FC or FB name to include in the TEST_TARGET example."
+						}
+					}
+				}
+			},
+			{
+				"name": "siemens_plccheck_validation_commands",
+				"tags": [
+					"siemens",
+					"plccheck",
+					"check",
+					"test",
+					"ci",
+					"validation"
+				],
+				"toolReferenceName": "plccheckValidate",
+				"displayName": "plccheck Validation Commands",
+				"modelDescription": "Use after Siemens PLC source changes, before commits, or when an agent needs the exact terminal commands to verify a PLC root. Returns plccheck check --show-warnings, plccheck test, CI event JSON, and coverage commands with the detected .plc.json root. This tool is read-only and does not execute commands.",
+				"userDescription": "Show the plccheck commands to validate this Siemens PLC project.",
+				"canBeReferencedInPrompt": true,
+				"icon": "$(check-all)",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"projectPath": {
+							"type": "string",
+							"description": "Optional absolute path to a PLC root or file under one. If omitted, the active editor and workspace .plc.json files are used."
+						}
+					}
+				}
+			},
+			{
+				"name": "siemens_plccheck_transpile_s7dcl",
+				"tags": [
+					"siemens",
+					"plccheck",
+					"s7dcl",
+					"fbd",
+					"lad",
+					"transpile"
+				],
+				"toolReferenceName": "plccheckTranspile",
+				"displayName": "plccheck S7DCL Transpile",
+				"modelDescription": "Use when an agent needs to inspect Siemens graphical exports such as S7DCL, FBD, or LAD before changing or testing PLC logic. Returns the plccheck transpile command for the active or supplied .s7dcl file and follow-up validation guidance for the PLC root. This tool is read-only and does not execute commands.",
+				"userDescription": "Show how to transpile a graphical S7DCL/FBD/LAD export to readable SCL.",
+				"canBeReferencedInPrompt": true,
+				"icon": "$(symbol-operator)",
+				"inputSchema": {
+					"type": "object",
+					"properties": {
+						"projectPath": {
+							"type": "string",
+							"description": "Optional absolute path to a PLC root or file under one. If omitted, the active editor and workspace .plc.json files are used."
+						},
+						"filePath": {
+							"type": "string",
+							"description": "Optional absolute path to the .s7dcl file to transpile. If omitted, the active editor is used when it is an .s7dcl file."
+						}
+					}
+				}
+			}
+		],
+		"commands": [
+			{
+				"command": "siemens.openS7DclPreview",
+				"title": "Open S7DCL Preview (FBD)"
+			},
+			{
+				"command": "siemens.openTagTableEditor",
+				"title": "Open PLC Tag Table Editor"
+			},
+			{
+				"command": "siemens.buildAndRun",
+				"title": "PLC: Build and Run"
+			},
+			{
+				"command": "siemens.debugPLC",
+				"title": "Siemens: Debug PLC"
+			},
+			{
+				"command": "siemens.runTests",
+				"title": "Siemens: Run Tests"
+			}
+		],
+		"views": {
+			"debug": [
+				{
+					"type": "webview",
+					"visibility": "visible",
+					"id": "siemens.plcDebugDashboard",
+					"name": "PLC Debug Dashboard"
+				},
+				{
+					"type": "webview",
+					"visibility": "visible",
+					"id": "siemens.plcDebugWatch",
+					"name": "PLC Live Watch"
+				}
+			]
+		},
+		"menus": {
+			"editor/title": [
+				{
+					"command": "siemens.openS7DclPreview",
+					"when": "resourceExtname == .s7dcl",
+					"group": "navigation"
+				},
+				{
+					"command": "siemens.openTagTableEditor",
+					"when": "resourceExtname == .xml && resourcePath =~ /PLC tags/",
+					"group": "navigation"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "siemens.openS7DclPreview",
+					"when": "resourceExtname == .s7dcl",
+					"group": "navigation"
+				},
+				{
+					"command": "siemens.openTagTableEditor",
+					"when": "resourceExtname == .xml && resourcePath =~ /PLC tags/",
+					"group": "navigation"
+				}
+			]
+		},
+		"languages": [
+			{
+				"id": "siemens",
+				"aliases": [
+					"Siemens",
+					"siemens",
+					"SCL"
+				],
+				"extensions": [
+					".scl",
+					".st",
+					".s7dcl",
+					".awl",
+					".udt",
+					".db"
+				],
+				"icon": {
+					"light": "./images/scl_file_icon.svg",
+					"dark": "./images/scl_file_icon.svg"
+				},
+				"configuration": "./language-configuration.json"
+			},
+			{
+				"id": "siemens-test",
+				"aliases": [
+					"PLC Test"
+				],
+				"extensions": [
+					".scltest"
+				],
+				"configuration": "./language-configuration.json"
+			},
+			{
+				"id": "siemens-resource",
+				"aliases": [
+					"Siemens Resource",
+					"siemens-resource",
+					"S7RES"
+				],
+				"extensions": [
+					".s7res"
+				],
+				"configuration": "./resource-language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "siemens",
+				"scopeName": "source.siemens",
+				"path": "./syntaxes/siemens.tmLanguage.json"
+			},
+			{
+				"language": "siemens-test",
+				"scopeName": "source.siemens-test",
+				"path": "./syntaxes/siemens-test.tmLanguage.json"
+			},
+			{
+				"language": "siemens-resource",
+				"scopeName": "source.siemens-resource",
+				"path": "./syntaxes/siemens-resource.tmLanguage.json"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "Siemens Language Server configuration",
+			"properties": {
+				"siemensLanguageServer.goBinaryPath": {
+					"scope": "application",
+					"type": "string",
+					"default": "",
+					"description": "Optional absolute path to a custom siemens-lsp Go backend binary. If empty, the extension uses the bundled binary."
+				},
+				"siemensLanguageServer.telemetryEndpoint": {
+					"scope": "application",
+					"type": "string",
+					"default": "https://telem.danielv.no",
+					"description": "URL to the telemetry ingestion API. Leave empty to disable telemetry."
+				},
+				"siemensLanguageServer.logAttachmentMaxBytes": {
+					"scope": "application",
+					"type": "number",
+					"default": 5242880,
+					"description": "Maximum raw attachment size (in bytes) to upload with error logs."
+				}
+			}
+		},
+		"configurationDefaults": {
+			"editor.tokenColorCustomizations": {
+				"textMateRules": [
+					{
+						"scope": "keyword.region.siemens",
+						"settings": {
+							"foreground": "#C586C0"
+						}
+					},
+					{
+						"scope": [
+							"comment.block.siemens",
+							"comment.line.double-slash.siemens"
+						],
+						"settings": {
+							"foreground": "#6A9955"
+						}
+					},
+					{
+						"scope": [
+							"entity.name.function.siemens",
+							"variable.parameter.siemens"
+						],
+						"settings": {
+							"foreground": "#CE9178"
+						}
+					},
+					{
+						"scope": [
+							"constant.numeric.base-prefix.siemens",
+							"constant.numeric.time-prefix.siemens"
+						],
+						"settings": {
+							"foreground": "#4FC1FF",
+							"fontStyle": "bold"
+						}
+					},
+					{
+						"scope": [
+							"constant.numeric.base-value.siemens",
+							"constant.numeric.time.value.siemens"
+						],
+						"settings": {
+							"foreground": "#DCDCAA"
+						}
+					},
+					{
+						"scope": "constant.numeric.time.unit.ms.siemens",
+						"settings": {
+							"foreground": "#FFA657"
+						}
+					},
+					{
+						"scope": "constant.numeric.time.unit.siemens",
+						"settings": {
+							"foreground": "#FFA657"
+						}
+					},
+					{
+						"scope": "keyword.operator.logical.siemens",
+						"settings": {
+							"foreground": "#569CD6",
+							"fontStyle": "bold"
+						}
+					},
+					{
+						"scope": [
+							"entity.name.tag.siemens-resource",
+							"meta.mapping.key.generic.siemens-resource"
+						],
+						"settings": {
+							"foreground": "#569CD6"
+						}
+					},
+					{
+						"scope": "support.constant.language-code.siemens-resource",
+						"settings": {
+							"foreground": "#C586C0",
+							"fontStyle": "bold"
+						}
+					},
+					{
+						"scope": "constant.other.resource-id.siemens-resource",
+						"settings": {
+							"foreground": "#FFA657"
+						}
+					},
+					{
+						"scope": "comment.line.value.siemens-resource",
+						"settings": {
+							"foreground": "#6A9955"
+						}
+					},
+					{
+						"scope": "string.unquoted.siemens-resource",
+						"settings": {
+							"foreground": "#CE9178"
+						}
+					},
+					{
+						"scope": "punctuation.separator.key-value.siemens-resource",
+						"settings": {
+							"foreground": "#808080"
+						}
+					},
+					{
+						"scope": "comment.line.number-sign.siemens-resource",
+						"settings": {
+							"foreground": "#6A9955"
+						}
+					}
+				]
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run clean && node scripts/build-go-lsp.js --all --no-host && node esbuild.config.js --minify",
+		"version": "node npm/scripts/plccheck-npm-version-hook.mjs",
+		"release:all": "node scripts/release-all.mjs",
+		"typecheck": "tsc -b --noEmit",
+		"build": "npm run build:go-lsp && node esbuild.config.js",
+		"site:build": "node site/build.js",
+		"tia:export-docs": "node scripts/export-tia-help.js",
+		"build:go-lsp": "node scripts/build-go-lsp.js",
+		"build:go-lsp:all": "node scripts/build-go-lsp.js --all",
+		"compile": "npm run build",
+		"clean": "rimraf out",
+		"watch": "node esbuild.config.js --watch --sourcemap",
+		"watch:go": "node scripts/watch-go-lsp.js",
+		"lint": "eslint ./client/src --ext .ts,.tsx --fix",
+		"postinstall": "cd client && npm install && cd ..",
+		"test:grammar": "node syntaxes/test/run-grammar-tests.cjs",
+		"test:debugger:e2e": "node client/test/debugger-e2e/runTest.js",
+		"test:plc:e2e": "npm run build && node client/test/plc-e2e/runTest.js",
+		"test:debugger:e2e:svelvik": "node client/test/debugger-e2e/runTest.js --mode launch-smoke --workspace testdata/svelvikMaskinV21 --plc-root testdata/svelvikMaskinV21/SvelvikMaskin --program \"SvelvikMaskin/Program blocks/Main.s7dcl\" --entry-ob Main --stop-on-entry false --run-write-mutation false --smoke-increment-expression testdb.watchdog --expect-overlay-expressions \"\\\"testdb\\\".watchdog\""
+	},
+	"dependencies": {
+		"@vscode/debugadapter": "^1.65.0",
+		"@vscode/debugprotocol": "^1.65.0",
+		"node-fetch": "^3.3.2",
+		"node-opcua-client": "^2.164.2",
+		"proper-lockfile": "^4.1.2",
+		"vscode-languageclient": "^9.0.1"
+	},
+	"devDependencies": {
+		"@types/node": "20.x",
+		"@types/node-fetch": "^2.6.13",
+		"@typescript-eslint/eslint-plugin": "^7.18.0",
+		"@typescript-eslint/parser": "^7.18.0",
+		"esbuild": "^0.23.0",
+		"eslint": "^8.57.0",
+		"rimraf": "^6.0.1",
+		"typescript": "^5.5.4",
+		"vscode-oniguruma": "^2.0.1",
+		"vscode-textmate": "^9.3.2"
+	},
+	"__metadata": {
+		"installedTimestamp": 1781162744031,
+		"targetPlatform": "universal",
+		"size": 42490115
+	}
+}
