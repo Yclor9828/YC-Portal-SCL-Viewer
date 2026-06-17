@@ -1,0 +1,19 @@
+FUNCTION_BLOCK "MotorControl"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+VAR_INPUT
+    Start : Bool;   // 启动按钮
+    Stop : Bool;    // 停止按钮
+END_VAR
+VAR_OUTPUT
+    Run : Bool;     // 电机运行指示
+END_VAR
+VAR
+    statRun : Bool; // 运行状态暂存
+END_VAR
+
+BEGIN
+    // 起保停逻辑：(Start OR statRun) AND NOT Stop
+    #statRun := (#Start OR #statRun) AND NOT #Stop;
+    #Run := #statRun;
+END_FUNCTION_BLOCK

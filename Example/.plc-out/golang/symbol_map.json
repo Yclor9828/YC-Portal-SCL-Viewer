@@ -1,0 +1,365 @@
+{
+  "original_to_generated": [
+    {
+      "key": "MOTORCONTROL.Run",
+      "value": "MOTORCONTROL.v_Run"
+    },
+    {
+      "key": "MOTORCONTROL.Run",
+      "value": "MOTORCONTROL.v_Run"
+    },
+    {
+      "key": "MOTORCONTROL.Start",
+      "value": "MOTORCONTROL.v_Start"
+    },
+    {
+      "key": "MOTORCONTROL.Start",
+      "value": "MOTORCONTROL.v_Start"
+    },
+    {
+      "key": "MOTORCONTROL.Stop",
+      "value": "MOTORCONTROL.v_Stop"
+    },
+    {
+      "key": "MOTORCONTROL.Stop",
+      "value": "MOTORCONTROL.v_Stop"
+    },
+    {
+      "key": "MOTORCONTROL.statRun",
+      "value": "MOTORCONTROL.v_statRun"
+    },
+    {
+      "key": "MOTORCONTROL.statRun",
+      "value": "MOTORCONTROL.v_statRun"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.Run",
+      "value": "MOTORCONTROL_S7DCL.v_Run"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.Run",
+      "value": "MOTORCONTROL_S7DCL.v_Run"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.Start",
+      "value": "MOTORCONTROL_S7DCL.v_Start"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.Start",
+      "value": "MOTORCONTROL_S7DCL.v_Start"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.Stop",
+      "value": "MOTORCONTROL_S7DCL.v_Stop"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.Stop",
+      "value": "MOTORCONTROL_S7DCL.v_Stop"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.statRun",
+      "value": "MOTORCONTROL_S7DCL.v_statRun"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.statRun",
+      "value": "MOTORCONTROL_S7DCL.v_statRun"
+    },
+    {
+      "key": "Memory.__scltest__.MotorControl",
+      "value": "Memory.scltestHarness_2a8723d3"
+    },
+    {
+      "key": "MotorControl",
+      "value": "MotorControl"
+    },
+    {
+      "key": "MotorControl_S7DCL",
+      "value": "MotorControl_S7DCL"
+    },
+    {
+      "key": "OB1",
+      "value": "OB1"
+    }
+  ],
+  "generated_to_original": [
+    {
+      "key": "MOTORCONTROL.v_Run",
+      "value": "MOTORCONTROL.Run"
+    },
+    {
+      "key": "MOTORCONTROL.v_Run",
+      "value": "MOTORCONTROL.Run"
+    },
+    {
+      "key": "MOTORCONTROL.v_Start",
+      "value": "MOTORCONTROL.Start"
+    },
+    {
+      "key": "MOTORCONTROL.v_Start",
+      "value": "MOTORCONTROL.Start"
+    },
+    {
+      "key": "MOTORCONTROL.v_Stop",
+      "value": "MOTORCONTROL.Stop"
+    },
+    {
+      "key": "MOTORCONTROL.v_Stop",
+      "value": "MOTORCONTROL.Stop"
+    },
+    {
+      "key": "MOTORCONTROL.v_statRun",
+      "value": "MOTORCONTROL.statRun"
+    },
+    {
+      "key": "MOTORCONTROL.v_statRun",
+      "value": "MOTORCONTROL.statRun"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.v_Run",
+      "value": "MOTORCONTROL_S7DCL.Run"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.v_Run",
+      "value": "MOTORCONTROL_S7DCL.Run"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.v_Start",
+      "value": "MOTORCONTROL_S7DCL.Start"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.v_Start",
+      "value": "MOTORCONTROL_S7DCL.Start"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.v_Stop",
+      "value": "MOTORCONTROL_S7DCL.Stop"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.v_Stop",
+      "value": "MOTORCONTROL_S7DCL.Stop"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.v_statRun",
+      "value": "MOTORCONTROL_S7DCL.statRun"
+    },
+    {
+      "key": "MOTORCONTROL_S7DCL.v_statRun",
+      "value": "MOTORCONTROL_S7DCL.statRun"
+    },
+    {
+      "key": "Memory.scltestHarness_2a8723d3",
+      "value": "Memory.__scltest__.MotorControl"
+    },
+    {
+      "key": "MotorControl",
+      "value": "MotorControl"
+    },
+    {
+      "key": "MotorControl_S7DCL",
+      "value": "MotorControl_S7DCL"
+    },
+    {
+      "key": "OB1",
+      "value": "OB1"
+    }
+  ],
+  "entries": [
+    {
+      "original": "MotorControl_S7DCL",
+      "generated": "MotorControl_S7DCL",
+      "kind": "FUNCTION_BLOCK",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.s7dcl",
+      "line": 1,
+      "column": 17
+    },
+    {
+      "original": "MotorControl",
+      "generated": "MotorControl",
+      "kind": "FUNCTION_BLOCK",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.scl",
+      "line": 1,
+      "column": 17
+    },
+    {
+      "original": "OB1",
+      "generated": "OB1",
+      "kind": "ORGANIZATION_BLOCK",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\OB1.scl",
+      "line": 1,
+      "column": 21
+    },
+    {
+      "original": "MOTORCONTROL.Start",
+      "generated": "MOTORCONTROL.v_Start",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.scl",
+      "line": 5,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL.Stop",
+      "generated": "MOTORCONTROL.v_Stop",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.scl",
+      "line": 6,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL.Run",
+      "generated": "MOTORCONTROL.v_Run",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.scl",
+      "line": 9,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL.statRun",
+      "generated": "MOTORCONTROL.v_statRun",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.scl",
+      "line": 12,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL_S7DCL.Start",
+      "generated": "MOTORCONTROL_S7DCL.v_Start",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.s7dcl",
+      "line": 5,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL_S7DCL.Stop",
+      "generated": "MOTORCONTROL_S7DCL.v_Stop",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.s7dcl",
+      "line": 6,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL_S7DCL.Run",
+      "generated": "MOTORCONTROL_S7DCL.v_Run",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.s7dcl",
+      "line": 9,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL_S7DCL.statRun",
+      "generated": "MOTORCONTROL_S7DCL.v_statRun",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.s7dcl",
+      "line": 12,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL.Start",
+      "generated": "MOTORCONTROL.v_Start",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.scl",
+      "line": 5,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL.Stop",
+      "generated": "MOTORCONTROL.v_Stop",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.scl",
+      "line": 6,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL.Run",
+      "generated": "MOTORCONTROL.v_Run",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.scl",
+      "line": 9,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL.statRun",
+      "generated": "MOTORCONTROL.v_statRun",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.scl",
+      "line": 12,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL_S7DCL.Start",
+      "generated": "MOTORCONTROL_S7DCL.v_Start",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.s7dcl",
+      "line": 5,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL_S7DCL.Stop",
+      "generated": "MOTORCONTROL_S7DCL.v_Stop",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.s7dcl",
+      "line": 6,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL_S7DCL.Run",
+      "generated": "MOTORCONTROL_S7DCL.v_Run",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.s7dcl",
+      "line": 9,
+      "column": 5
+    },
+    {
+      "original": "MOTORCONTROL_S7DCL.statRun",
+      "generated": "MOTORCONTROL_S7DCL.v_statRun",
+      "kind": "FIELD",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.s7dcl",
+      "line": 12,
+      "column": 5
+    },
+    {
+      "original": "Memory.__scltest__.MotorControl",
+      "generated": "Memory.scltestHarness_2a8723d3",
+      "kind": "MEM_FIELD"
+    }
+  ],
+  "statement_variables": [
+    {
+      "debug_id": "MotorControl.e:/VS/VS_Project/Porta_SCL_Viewer/Example/MotorControl.scl:17",
+      "block": "MotorControl",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.scl",
+      "line": 17,
+      "column": 5,
+      "variables": [
+        {
+          "name": "statRun",
+          "is_write": true
+        },
+        {
+          "name": "Start"
+        },
+        {
+          "name": "statRun"
+        },
+        {
+          "name": "Stop"
+        }
+      ]
+    },
+    {
+      "debug_id": "MotorControl.e:/VS/VS_Project/Porta_SCL_Viewer/Example/MotorControl.scl:18",
+      "block": "MotorControl",
+      "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.scl",
+      "line": 18,
+      "column": 5,
+      "variables": [
+        {
+          "name": "Run",
+          "is_write": true
+        },
+        {
+          "name": "statRun"
+        }
+      ]
+    }
+  ]
+}

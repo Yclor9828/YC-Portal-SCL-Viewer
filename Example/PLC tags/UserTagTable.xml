@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <SW.PlcImage.PlcTagTable ID="0">
+    <AttributeList>
+      <Name>UserTagTable</Name>
+    </AttributeList>
+    <ObjectList>
+      <SW.PlcImage.PlcTag ID="1" CompositionName="Tags">
+        <AttributeList>
+          <DataTypeName>Bool</DataTypeName>
+          <LogicalAddress>%I0.0</LogicalAddress>
+          <Name>Start_Button</Name>
+        </AttributeList>
+      </SW.PlcImage.PlcTag>
+      <SW.PlcImage.PlcTag ID="2" CompositionName="Tags">
+        <AttributeList>
+          <DataTypeName>Bool</DataTypeName>
+          <LogicalAddress>%I0.1</LogicalAddress>
+          <Name>Stop_Button</Name>
+        </AttributeList>
+      </SW.PlcImage.PlcTag>
+      <SW.PlcImage.PlcTag ID="3" CompositionName="Tags">
+        <AttributeList>
+          <DataTypeName>Bool</DataTypeName>
+          <LogicalAddress>%Q0.0</LogicalAddress>
+          <Name>Motor_Output</Name>
+        </AttributeList>
+      </SW.PlcImage.PlcTag>
+    </ObjectList>
+  </SW.PlcImage.PlcTagTable>
+</Document>

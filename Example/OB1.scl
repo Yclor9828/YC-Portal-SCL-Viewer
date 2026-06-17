@@ -1,0 +1,7 @@
+ORGANIZATION_BLOCK "OB1"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+    // 主循环，暂时留空
+END_ORGANIZATION_BLOCK

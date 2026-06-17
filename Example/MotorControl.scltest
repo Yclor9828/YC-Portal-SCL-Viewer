@@ -1,0 +1,34 @@
+TEST_TARGET "MotorControl";
+
+TEST_CASE "Motor starts when Start is pressed"
+    SET UUT.Start := TRUE;
+    SET UUT.Stop := FALSE;
+    WAIT_CYCLES 1;
+    ASSERT UUT.Run = TRUE;
+END_TEST_CASE
+
+TEST_CASE "Motor holds run state when Start is released"
+    // Start the motor
+    SET UUT.Start := TRUE;
+    SET UUT.Stop := FALSE;
+    WAIT_CYCLES 1;
+    ASSERT UUT.Run = TRUE;
+
+    // Release Start button (should seal/hold run status)
+    SET UUT.Start := FALSE;
+    WAIT_CYCLES 1;
+    ASSERT UUT.Run = TRUE;
+END_TEST_CASE
+
+TEST_CASE "Motor stops when Stop is pressed"
+    // Ensure motor is running
+    SET UUT.Start := TRUE;
+    SET UUT.Stop := FALSE;
+    WAIT_CYCLES 1;
+    ASSERT UUT.Run = TRUE;
+
+    // Press Stop button
+    SET UUT.Stop := TRUE;
+    WAIT_CYCLES 1;
+    ASSERT UUT.Run = FALSE;
+END_TEST_CASE

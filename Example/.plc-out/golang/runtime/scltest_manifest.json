@@ -1,0 +1,31 @@
+{
+  "cases": [
+    {
+      "sourcePath": "MotorControl.scltest",
+      "ordinalInFile": 1,
+      "name": "Motor starts when Start is pressed",
+      "line": 3,
+      "column": 1,
+      "stableId": "scltest:MotorControl.scltest:L3:C1:Motor starts when Start is pressed",
+      "goTestName": "TestUserCase001_MotorStartsWhenStartIsPressed"
+    },
+    {
+      "sourcePath": "MotorControl.scltest",
+      "ordinalInFile": 2,
+      "name": "Motor holds run state when Start is released",
+      "line": 10,
+      "column": 1,
+      "stableId": "scltest:MotorControl.scltest:L10:C1:Motor holds run state when Start is released",
+      "goTestName": "TestUserCase002_MotorHoldsRunStateWhenStartIsReleased"
+    },
+    {
+      "sourcePath": "MotorControl.scltest",
+      "ordinalInFile": 3,
+      "name": "Motor stops when Stop is pressed",
+      "line": 23,
+      "column": 1,
+      "stableId": "scltest:MotorControl.scltest:L23:C1:Motor stops when Stop is pressed",
+      "goTestName": "TestUserCase003_MotorStopsWhenStopIsPressed"
+    }
+  ]
+}

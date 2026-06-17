@@ -1,5 +1,5 @@
 {
-	"name": "yc-portal-scl-viewer",
+	"name": "dynamic-siemens-language-support",
 	"displayName": "YC Portal SCL Viewer",
 	"description": "Syntax highlighting and Language Server for Siemens SCL, providing clear and modern file icons for your project.",
 	"keywords": [
@@ -11,7 +11,7 @@
 		"TIA Portal"
 	],
 	"icon": "images/logo_transparent.png",
-	"version": "2.10.1",
+	"version": "2.11.1",
 	"publisher": "DynamicEngineering",
 	"repository": {
 		"type": "git",
@@ -22,6 +22,7 @@
 	},
 	"activationEvents": [
 		"onLanguage:siemens",
+		"onLanguage:siemens-dcl",
 		"onLanguage:siemens-resource",
 		"onLanguage:siemens-test",
 		"workspaceContains:**/.plc.json",
@@ -348,7 +349,6 @@
 				"extensions": [
 					".scl",
 					".st",
-					".s7dcl",
 					".awl",
 					".udt",
 					".db"
@@ -360,6 +360,22 @@
 				"configuration": "./language-configuration.json"
 			},
 			{
+				"id": "siemens-dcl",
+				"aliases": [
+					"Siemens DCL",
+					"siemens-dcl",
+					"S7DCL"
+				],
+				"extensions": [
+					".s7dcl"
+				],
+				"icon": {
+					"light": "./images/s7d_file_icon.svg",
+					"dark": "./images/s7d_file_icon.svg"
+				},
+				"configuration": "./language-configuration.json"
+			},
+			{
 				"id": "siemens-test",
 				"aliases": [
 					"PLC Test"
@@ -367,6 +383,10 @@
 				"extensions": [
 					".scltest"
 				],
+				"icon": {
+					"light": "./images/stt_file_icon.svg",
+					"dark": "./images/stt_file_icon.svg"
+				},
 				"configuration": "./language-configuration.json"
 			},
 			{
@@ -385,6 +405,11 @@
 		"grammars": [
 			{
 				"language": "siemens",
+				"scopeName": "source.siemens",
+				"path": "./syntaxes/siemens.tmLanguage.json"
+			},
+			{
+				"language": "siemens-dcl",
 				"scopeName": "source.siemens",
 				"path": "./syntaxes/siemens.tmLanguage.json"
 			},
