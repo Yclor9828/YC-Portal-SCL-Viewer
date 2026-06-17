@@ -15,7 +15,7 @@
 	"publisher": "DynamicEngineering",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Danielv123/vscode_siemens"
+		"url": "https://github.com/Yclor9828/YC-Portal-SCL-Viewer.git"
 	},
 	"engines": {
 		"vscode": "^1.99.0"

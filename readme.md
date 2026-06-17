@@ -1,44 +1,84 @@
-## Siemens Language Support
+# YC Portal SCL Viewer
 
-This VS Code extension provides syntax highlighting and language tooling (diagnostics, hover, completion, and go-to-definition) for Siemens SCL / Structured Text projects, plus related TIA export formats.
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+[![VS Code Extension](https://img.shields.io/badge/VS%20Code-Extension-blue.svg)](https://marketplace.visualstudio.com/)
 
-Documentation: [danielv123.github.io/vscode_siemens/docs](https://danielv123.github.io/vscode_siemens/docs/index.html)
+**YC Portal SCL Viewer** is a VS Code extension designed to bring robust syntax highlighting, diagnostic linting, and advanced language services to Siemens SCL / Structured Text and related TIA Portal export formats.
 
-Bugs/incorrect/missing diagnostics can be reported to danielv@danielv.no - reproducible examples are appreciated.
+---
 
-### Features
-- Syntax highlighting via TextMate grammar for Siemens source files
-- Table based editor for tag table XML files
-- FBD block preview from .s7dcl files
-- Comment toggling and bracket pairing via language configuration
-- Diagnostics and type checking via the Go language server backend
-- Hover type information, completion, and go-to-definition (including quoted identifiers)
-- `.s7dcl` inlay hints for `.s7res` titles + navigation from `.s7dcl` references to `.s7res` entries
-- Workspace type scoping via `.plc.json` roots
-- Dedicated PLC testing framework with `.scltest` support
+## 📢 声明与致谢 / Statement & Attribution
 
-![FBD block preview](https://files.catbox.moe/hw7udm.png)
-![Tag table editor](https://files.catbox.moe/58xy42.png)
-![S7DCL editor](https://files.catbox.moe/73r0zu.png)
+> [!IMPORTANT]
+> **本插件是一个基于开源项目的定制修改版本 / This extension is a customized fork of:**
+> * **原项目 (Original Repository):** [Dynamic Siemens Language Support](https://github.com/Danielv123/vscode_siemens)
+> * **原作者 (Original Creator):** [DynamicEngineering (Danielv123)](https://github.com/Danielv123)
+> * **开源协议 (License):** [CC BY-NC 4.0](LICENSE.md)
+>
+> **我们的修改与优化 (Our Modifications):**
+> 1. **图标美化与 UI 优化 (Icon & UI Beautification)**：设计并集成了更加现代化、美观且高对比度的 SCL 关联文件图标（SVG格式），大幅提升了在 VS Code 侧边栏和文件浏览器中的辨识度。
+> 2. **品牌标识优化 (Logo Branding)**：定制了全新的品牌 Logo 替换原版图标。
+> 
+> *非常感谢原作者 Danielv123 提供的优秀核心底座！如需获取原项目的技术文档，请访问 [vscode_siemens 官方文档](https://danielv123.github.io/vscode_siemens/docs/index.html)。*
+>
+> ---
+>
+> *We express our sincere gratitude to Danielv123 for their outstanding work on the original language server and frontend logic. For detailed technical docs, check the [Official Documentation](https://danielv123.github.io/vscode_siemens/docs/index.html).*
 
-### File associations
-Files ending in `.scl`, `.st`, `.s7res`, `.s7dcl`, `.udt`, `.db`, and `.awl` will be highlighted.
+---
 
-PLC tag-table `.xml` files are scanned to resolve global symbols and receive dedicated XML diagnostics (for example undefined types, duplicate tag names, and name conflicts).
+## 🚀 主要功能 / Features
 
-### Settings
-- `siemensLanguageServer.goBinaryPath`: absolute path to a custom `siemens-lsp` backend binary (leave empty to use the bundled binary).
+本项目继承了原版强大的西门子 PLC 编程支持，主要提供以下核心功能：
 
-### PLC scopes with `.plc.json`
-- Place a `.plc.json` file in each PLC project folder to give it an isolated type scope. This keeps types from one PLC from spilling into another when you have multiple PLCs inside one VS Code workspace.
-- The language server treats the folder containing `.plc.json` (plus any extra `libraries` you list) as one scope. Every subdirectory under that PLC root automatically shares the same type index.
-- **Project Libraries (v1)**: If a PLC root contains `.liblink` placeholders (e.g., under `Program blocks/Library/` or `PLC data types/Library/`), the server automatically discovers and includes sibling `../Types` as a read-only library source.
-	- **GUID-Driven Matching**: Resolution is based on `TypeGuid` inside `.liblink` matching against `.libinfo`/`.libint` sidecars in the `Types` tree.
-	- **Strict Sibling Layout**: The `Types` folder must be a direct sibling of the folder containing `.plc.json`.
-	- **Additive**: Project-library discovery is additive and does not replace explicit `libraries` in `.plc.json`.
-- Example configuration:
+### 1. 语法高亮与文件关联 (Syntax Highlighting & File Associations)
+* 针对 `.scl`, `.st`, `.s7res`, `.s7dcl`, `.udt`, `.db`, `.awl` 等格式提供基于 TextMate 语法树的专业着色。
+* 对 PLC 的 `.xml` 格式标签表（Tag Table）进行关联，识别全局符号。
 
-```
+### 2. 基于表格的标签表编辑器 (Table-Based Tag Table Editor)
+* 内置 XML 标签表编辑器，支持以直观的表格形式直接阅读和编辑西门子 PLC 标签，避免手动处理繁杂的 XML 文本。
+
+### 3. FBD 功能块图预览 (FBD Block Preview)
+* 支持从 `.s7dcl` 文件自动渲染生成图形化的 FBD（功能块图）预览，方便在代码与控制逻辑图之间快速对齐。
+
+### 4. 强大的后台语言服务器诊断 (Diagnostics & Type Checking)
+* 集成了基于 Go 语言开发的 `siemens-lsp` 后端。
+* 提供实时的语法分析、参数及类型安全校验（如：检测未定义的类型、重名的标签以及变量命名冲突等）。
+
+### 5. 语言服务交互 (LSP Hover, Auto-Complete & Go-to-Definition)
+* **悬停提示 (Hover)**：显示详细的类型信息、引脚描述等。
+* **智能补全 (Autocomplete)**：上下文敏感的代码自动补全。
+* **跳转到定义 (Go-to-Definition)**：支持快速跳转到对应的变量或块定义（甚至支持带双引号的标识符）。
+* 支持 `.s7dcl` 的 Inlay hints 并能够导航跳转至 `.s7res` 条目。
+
+### 6. 多 PLC 作用域隔离 (Multi-PLC Isolation via `.plc.json`)
+* 在包含多个 PLC 的工作区中，只需在各个 PLC 的项目根目录下放置 `.plc.json`，即可实现变量和类型隔离，防止重名块和类型相互干扰。
+
+### 7. 单元测试框架支持 (PLC Testing Framework)
+* 提供了针对 Structured Text 的测试框架，支持在 `.scltest` 文件中编写 DSL 测试用例（支持 `SET` 赋值、`WAIT_CYCLES` 周期等待、`ASSERT` 断言等）。
+* 支持集成到 VS Code 测试资源管理器（Test Explorer），可视化查看测试通过率及失败原因（带有详细的 Diff 校验对比）。
+
+---
+
+## 📸 界面预览 / Screenshots
+
+| FBD 功能块图预览 (FBD Preview) | 标签表编辑器 (Tag Table Editor) | S7DCL 编辑器 (S7DCL Editor) |
+|:---:|:---:|:---:|
+| ![FBD block preview](https://files.catbox.moe/hw7udm.png) | ![Tag table editor](https://files.catbox.moe/58xy42.png) | ![S7DCL editor](https://files.catbox.moe/73r0zu.png) |
+
+---
+
+## 🛠️ 配置说明 / Settings
+
+* `siemensLanguageServer.goBinaryPath`：指定自定义 `siemens-lsp` 后端二进制文件的绝对路径（留空则默认使用插件内置的二进制文件）。
+
+---
+
+## 📂 多 PLC 项目范围划分 (`.plc.json`)
+
+每个 PLC 项目文件夹下可配置 `.plc.json` 文件以限制类型的作用域，配置样例如下：
+
+```json
 {
 	"name": "PackingLine PLC",
 	"description": "Main line controller",
@@ -49,20 +89,20 @@ PLC tag-table `.xml` files are scanned to resolve global symbols and receive ded
 }
 ```
 
-- `libraries` paths are resolved relative to the `.plc.json` file and must exist to be used.
-- Type lookups never fall back to other PLC roots; each `.plc.json` keeps its scope isolated.
-- Editing or adding `.plc.json` files causes the language server to rescan automatically.
+* `libraries` 路径会相对于 `.plc.json` 的所在位置进行解析。
+* 语言服务器会自动发现 PLC 根目录下的 `.liblink` 占位符，并结合同级目录下的 `../Types`（匹配其中的 `.libinfo` 和 `.libint` 描述文件）进行解析，从而为项目库提供悬停、跳转及诊断支持。
 
-### Project-Library Support
-The language server provides specialized support for Siemens project-library exports. This mechanism is separate from the standard `.plc.json` `libraries` list.
+---
 
-To use libraries exported from the TIA portal, make sure the Types directly is available as ../Types from the .plc.json indicating the root directory of the PLC. The server automatically discovers `.liblink` placeholders under the PLC root and matches them to `.libinfo` and `.libint` sidecars in the sibling `../Types` directory using their shared `TypeGuid`. This wiring enables cross-file and cross-library Go-to-Definition, Hover, and Completion support for project libraries, plus automatic invalidation and diagnostics refresh when library source or metadata files change.
+## 🧪 PLC 测试与校验
 
-### PLC Testing
-The extension includes a dedicated testing framework for Structured Text using `.scltest` files. It supports both whole-program and isolated unit tests for FCs and FBs.
+在 `.scltest` 文件中可以快速定义您的 FC 或 FB 测试用例。例如：
 
-- **Authoring**: Write tests in the DSL to `SET` values, `WAIT_CYCLES`, and `ASSERT` boolean conditions.
-- **Discovery**: Use the VS Code Test Explorer to manage and run your suites.
-- **Reporting**: Failures are mapped back to the source `.scltest` lines with detailed diffs.
+```scltest
+// 示例测试结构
+SET "simulator".enable_simulator := TRUE
+WAIT_CYCLES 5
+ASSERT "IO_simulator_DB".B1_Level == 10
+```
 
-See [docs/testing.md](docs/testing.md) for a full guide and example snippets.
+详细的使用规范请参考 [docs/testing.md](docs/testing.md)。
