@@ -13,9 +13,11 @@ VAR
 END_VAR
 
 BEGIN
+    { S7_Language := 'SCL' }
     NETWORK
     TITLE = Motor Control logic
     #statRun := (#Start OR #statRun) AND NOT #Stop;
     #Run := #statRun;
+    END_NETWORK
 
 END_FUNCTION_BLOCK

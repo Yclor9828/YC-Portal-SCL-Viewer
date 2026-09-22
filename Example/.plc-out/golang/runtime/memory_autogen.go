@@ -9,6 +9,9 @@ type Memory struct {
 	SCLH_CycleWindowNS      int64
 	SCLH_CycleWindowCount   int64
 	SCLH_LastStepNS         int64
+	v_MOTOR_OUTPUT          bool            `opcua:"kind=global&name=MOTOR_OUTPUT&section=output&type=Bool"`
+	v_START_BUTTON          bool            `opcua:"kind=global&name=START_BUTTON&section=input&type=Bool"`
+	v_STOP_BUTTON           bool            `opcua:"kind=global&name=STOP_BUTTON&section=input&type=Bool"`
 	scltestHarness_2a8723d3 DB_MotorControl `opcua:"kind=scltest&name=MotorControl&section=static&type=MotorControl"`
 }
 

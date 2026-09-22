@@ -65,6 +65,18 @@
       "value": "MOTORCONTROL_S7DCL.v_statRun"
     },
     {
+      "key": "Memory.MOTOR_OUTPUT",
+      "value": "Memory.v_MOTOR_OUTPUT"
+    },
+    {
+      "key": "Memory.START_BUTTON",
+      "value": "Memory.v_START_BUTTON"
+    },
+    {
+      "key": "Memory.STOP_BUTTON",
+      "value": "Memory.v_STOP_BUTTON"
+    },
+    {
       "key": "Memory.__scltest__.MotorControl",
       "value": "Memory.scltestHarness_2a8723d3"
     },
@@ -149,6 +161,18 @@
     {
       "key": "Memory.scltestHarness_2a8723d3",
       "value": "Memory.__scltest__.MotorControl"
+    },
+    {
+      "key": "Memory.v_MOTOR_OUTPUT",
+      "value": "Memory.MOTOR_OUTPUT"
+    },
+    {
+      "key": "Memory.v_START_BUTTON",
+      "value": "Memory.START_BUTTON"
+    },
+    {
+      "key": "Memory.v_STOP_BUTTON",
+      "value": "Memory.STOP_BUTTON"
     },
     {
       "key": "MotorControl",
@@ -315,6 +339,21 @@
       "path": "e:\\VS\\VS_Project\\Porta_SCL_Viewer\\Example\\MotorControl.s7dcl",
       "line": 12,
       "column": 5
+    },
+    {
+      "original": "Memory.MOTOR_OUTPUT",
+      "generated": "Memory.v_MOTOR_OUTPUT",
+      "kind": "MEM_FIELD"
+    },
+    {
+      "original": "Memory.START_BUTTON",
+      "generated": "Memory.v_START_BUTTON",
+      "kind": "MEM_FIELD"
+    },
+    {
+      "original": "Memory.STOP_BUTTON",
+      "generated": "Memory.v_STOP_BUTTON",
+      "kind": "MEM_FIELD"
     },
     {
       "original": "Memory.__scltest__.MotorControl",

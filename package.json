@@ -1,5 +1,5 @@
 {
-	"name": "dynamic-siemens-language-support",
+	"name": "yc-portal-scl-viewer",
 	"displayName": "YC Portal SCL Viewer",
 	"description": "Syntax highlighting and Language Server for Siemens SCL, providing clear and modern file icons for your project.",
 	"keywords": [
@@ -12,7 +12,7 @@
 	],
 	"icon": "images/logo_transparent.png",
 	"version": "2.11.1",
-	"publisher": "DynamicEngineering",
+	"publisher": "Yclor",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Yclor9828/YC-Portal-SCL-Viewer.git"

@@ -11,27 +11,37 @@ $settingsFiles = @(
     "C:\Users\yinyi\AppData\Roaming\Trae CN\User\settings.json"
 )
 
-$targetFolder = "dynamicengineering.dynamic-siemens-language-support-2.11.1-universal"
-$extId = "dynamicengineering.dynamic-siemens-language-support"
+$targetFolder = "yclor.yc-portal-scl-viewer-2.11.1-universal"
+$extId = "yclor.yc-portal-scl-viewer"
 $version = "2.11.1"
 
 # 1. Clear old / conflict extensions
+$legacyFolders = @(
+    "dynamicengineering.dynamic-siemens-language-support-2.11.1-universal",
+    "dynamicengineering.dynamic-siemens-language-support-2.11.1",
+    "yc-portal-scl-viewer"
+)
+
 foreach ($extDir in $extensionsDirs) {
     if (Test-Path $extDir) {
-        # Clear old yc-portal-scl-viewer if exists
-        $oldLink = Join-Path $extDir "yc-portal-scl-viewer"
-        if (Test-Path $oldLink) {
-            Remove-Item -Path $oldLink -Recurse -Force -ErrorAction SilentlyContinue
+        foreach ($legacy in $legacyFolders) {
+            $legacyPath = Join-Path $extDir $legacy
+            if (Test-Path $legacyPath) {
+                $item = Get-Item $legacyPath -ErrorAction SilentlyContinue
+                if ($item.Attributes -match "ReparsePoint") {
+                    cmd /c rmdir "$legacyPath"
+                } else {
+                    Remove-Item -Path $legacyPath -Recurse -Force -ErrorAction SilentlyContinue
+                }
+            }
         }
 
         # Backup or remove target folder
         $targetPath = Join-Path $extDir $targetFolder
         if (Test-Path $targetPath) {
             $bakPath = $targetPath + ".bak"
-            # Check if it is a junction or symlink
             $item = Get-Item $targetPath -ErrorAction SilentlyContinue
             if ($item.Attributes -match "ReparsePoint") {
-                # Junction can be deleted using rmdir or Remove-Item directly
                 cmd /c rmdir "$targetPath"
             } else {
                 if (-not (Test-Path $bakPath)) {
@@ -72,6 +82,9 @@ foreach ($extDir in $extensionsDirs) {
             $data = @()
         }
 
+        # Remove legacy dynamicengineering entries if any
+        $data = @($data | Where-Object { $_.identifier.id -ne "dynamicengineering.dynamic-siemens-language-support" })
+
         # Check if already exists
         $exists = $false
         foreach ($item in $data) {
@@ -83,6 +96,11 @@ foreach ($extDir in $extensionsDirs) {
                     '$mid' = 1
                     "path" = "/c:/Users/yinyi/$dirName/extensions/$targetFolder"
                     "scheme" = "file"
+                }
+                $item.metadata = @{
+                    "installedTimestamp" = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
+                    "pinned" = $true
+                    "source" = "vsix"
                 }
                 $exists = $true
                 break
@@ -103,17 +121,9 @@ foreach ($extDir in $extensionsDirs) {
                 }
                 "relativeLocation" = $targetFolder
                 "metadata" = @{
-                    "installedTimestamp" = 1781162744031
-                    "pinned" = $false
-                    "source" = "gallery"
-                    "id" = $extId
-                    "publisherId" = "dynamicengineering"
-                    "publisherDisplayName" = "DynamicEngineering"
-                    "targetPlatform" = "universal"
-                    "updated" = $false
-                    "private" = $false
-                    "isPreReleaseVersion" = $false
-                    "hasPreReleaseVersion" = $false
+                    "installedTimestamp" = [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
+                    "pinned" = $true
+                    "source" = "vsix"
                 }
             }
             $data += $newEntry
